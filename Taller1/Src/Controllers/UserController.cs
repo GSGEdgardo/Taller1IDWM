@@ -22,9 +22,9 @@ namespace Taller1.Src.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<User>> GetAllUsers()
+        public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
         {
-            var result = _service.GetUsers().Result;
+            var result = await _service.GetUsers();
             return Ok(result);
         }
     }

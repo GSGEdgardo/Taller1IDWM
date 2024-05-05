@@ -6,10 +6,8 @@ using Taller1.Src.Models;
 
 namespace Taller1.Src.Repositories.Interfaces
 {
-    public interface IUserRepository
+    public interface IRoleRepository
     {
-        Task<IEnumerable<User>> GetUsers();
-
-        Task<User?> GetUserByEmail(string Email);
+        Task<Role?> GetRoleById(int id);
     }
 }

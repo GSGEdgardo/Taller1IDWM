@@ -22,5 +22,13 @@ namespace Taller1.Src.Repositories.Implements
             var users = await _context.Users.ToListAsync();
             return users;
         }
+
+        public async Task<User?> GetUserByEmail(string Email)
+        {
+            var user = await _context.Users.Where(u => u.Email == Email)
+                                            .Include(u => u.Role)
+                                            .FirstOrDefaultAsync();
+            return user;
+        }
     }
 }

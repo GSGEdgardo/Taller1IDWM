@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Taller1.Src.Models;
 using Taller1.Src.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Taller1.Src.Controllers
 {
     [ApiController]
+    [Authorize(Roles= "Admin")]
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {

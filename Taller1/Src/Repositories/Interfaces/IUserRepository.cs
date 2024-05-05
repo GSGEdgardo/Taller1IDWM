@@ -11,5 +11,11 @@ namespace Taller1.Src.Repositories.Interfaces
         Task<IEnumerable<User>> GetUsers();
 
         Task<User?> GetUserByEmail(string Email);
+
+        Task<bool> VerifyUserByEmail(string Email);
+
+        Task<bool> VerifyUserByRut(string Email);
+
+        Task AddUser(User user);
     }
 }

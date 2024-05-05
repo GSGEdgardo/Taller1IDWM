@@ -9,5 +9,7 @@ namespace Taller1.Src.Repositories.Interfaces
     public interface IRoleRepository
     {
         Task<Role?> GetRoleById(int id);
+
+        Task<Role?> GetRoleByName(string name);
     }
 }

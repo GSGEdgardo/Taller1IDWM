@@ -29,5 +29,16 @@ namespace Taller1.Src.Controllers
 
             return Ok(response);
         }
+
+        [HttpPost("register")]
+        public async Task<ActionResult<string>> Register(RegisterUserDto registerUserDto){
+            try{
+                var response = await _authService.RegisterUser(registerUserDto);
+                return Ok(response);
+            }
+            catch(Exception ex){
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

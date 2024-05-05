@@ -30,7 +30,7 @@ namespace Taller1.Src.Data
                     var user = new User { 
                         Name = "Ignacio Mancilla",
                         Rut = "20.416.699-4",
-                        Birthdate = "2000-10-25",
+                        Birthdate = new DateOnly(2000, 10, 25),
                         Email = "ignacio.mancilla@gmail.com",
                         Gender = "Male",
                         Password = BCrypt.Net.BCrypt.HashPassword("P4ssw0rd"),

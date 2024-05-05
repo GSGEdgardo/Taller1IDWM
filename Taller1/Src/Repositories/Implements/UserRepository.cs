@@ -30,5 +30,33 @@ namespace Taller1.Src.Repositories.Implements
                                             .FirstOrDefaultAsync();
             return user;
         }
+
+        public async Task AddUser(User user)
+        {
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<bool> VerifyUserByEmail(string Email)
+        {
+            var user = await _context.Users.Where(u => u.Email == Email)
+                                            .FirstOrDefaultAsync();
+            if(user == null){
+                return false;
+            }
+            return true;
+
+        }
+
+        public async Task<bool> VerifyUserByRut(string rut)
+        {
+            var user = await _context.Users.Where(u => u.Rut == rut)
+                                        .FirstOrDefaultAsync();
+            if (user == null)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }

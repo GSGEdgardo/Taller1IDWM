@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Taller1.Src.DTOs;
+using Taller1.Src.Models;
 
 namespace Taller1.Src.Services.Interfaces
 {
-    public interface IAuthService
+    public interface IMapperService
     {
-        Task<string?> Login(LoginUserDto loginUserDto);
-
-        Task<string> RegisterUser(RegisterUserDto registerUserDto);
+        public User RegisterUserDtoToUser(RegisterUserDto registerUserDto);
     }
 }

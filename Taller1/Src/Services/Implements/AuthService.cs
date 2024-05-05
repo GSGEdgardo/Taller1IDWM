@@ -14,11 +14,15 @@ namespace Taller1.Src.Services.Implements
     {
         private readonly IConfiguration _configuration;
         private readonly IUserRepository _userRepository;
+        private readonly IRoleRepository _roleRepository;
+        private readonly IMapperService _mapperService;
 
-        public AuthService(IConfiguration configuration, IUserRepository userRepository)
+        public AuthService(IConfiguration configuration, IUserRepository userRepository,IMapperService mapperService, IRoleRepository roleRepository)
         {
             _userRepository = userRepository;
             _configuration = configuration;
+            _roleRepository = roleRepository;
+            _mapperService = mapperService;
         }
 
         public async Task<string?> Login(LoginUserDto loginUserDto)
@@ -54,6 +58,43 @@ namespace Taller1.Src.Services.Implements
 
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
             return jwt;
+        }
+
+        public async Task<string> RegisterUser(RegisterUserDto registerUserDto)
+        {
+            var mappedUser = _mapperService.RegisterUserDtoToUser(registerUserDto);
+
+            // Verificar si el email ya existe
+            if (await _userRepository.VerifyUserByEmail(mappedUser.Email))
+            {
+                throw new Exception("El email ingresado ya existe.");
+            }
+
+            // Verificar si el Rut ya existe
+            if (await _userRepository.VerifyUserByRut(mappedUser.Rut))
+            {
+                throw new Exception("El Rut ingresado ya está en uso.");
+            }
+
+            var salt = BCrypt.Net.BCrypt.GenerateSalt(12);
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword(registerUserDto.Password, salt);
+
+            mappedUser.Password = passwordHash;
+            var role = await _roleRepository.GetRoleByName("Usuario");
+            if(role == null){
+                throw new Exception("Error del servidor, intentelo más tarde.");
+            }
+            mappedUser.RoleId = role.Id;
+            
+            await _userRepository.AddUser(mappedUser);
+            var user = await _userRepository.GetUserByEmail(mappedUser.Email);
+            if(user == null){
+                return "Error del servidor, intentelo más tarde.";
+            }
+            
+            var token = CreateToken(user);
+            return token;
+            
         }
     }
 }

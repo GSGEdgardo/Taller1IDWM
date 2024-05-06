@@ -10,5 +10,7 @@ namespace Taller1.Src.Services.Interfaces
     public interface IMapperService
     {
         public User RegisterUserDtoToUser(RegisterUserDto registerUserDto);
+
+        public IEnumerable<UserDto> UserToUserDto(IEnumerable<User> users);
     }
 }

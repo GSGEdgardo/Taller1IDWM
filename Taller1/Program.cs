@@ -22,6 +22,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IMapperService, MapperService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddAuthentication().AddJwtBearer(options =>
 {

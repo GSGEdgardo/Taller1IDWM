@@ -13,6 +13,7 @@ namespace Taller1.Src.Profiles
         public MappingProfile()
         {
             CreateMap<RegisterUserDto, User>();
+            CreateMap<User, UserDto>();
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Taller1.Src.Models;
+using Taller1.Src.DTOs;
 
 namespace Taller1.Src.Repositories.Interfaces
 {
@@ -17,5 +18,7 @@ namespace Taller1.Src.Repositories.Interfaces
         Task<bool> VerifyUserByRut(string Email);
 
         Task AddUser(User user);
+
+        Task<bool> EditUser(int id, EditUserDto editUser);
     }
 }

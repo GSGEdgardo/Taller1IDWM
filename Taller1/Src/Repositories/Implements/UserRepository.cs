@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Taller1.Src.Data;
 using Taller1.Src.Models;
 using Taller1.Src.Repositories.Interfaces;
+using Taller1.Src.DTOs;
 
 namespace Taller1.Src.Repositories.Implements
 {
@@ -19,7 +20,7 @@ namespace Taller1.Src.Repositories.Implements
         }
         public async Task<IEnumerable<User>> GetUsers()
         {
-            var users = await _context.Users.ToListAsync();
+            var users = await _context.Users.Where(u => u.RoleId == 2).ToListAsync();
             return users;
         }
 
@@ -57,6 +58,31 @@ namespace Taller1.Src.Repositories.Implements
                 return false;
             }
             return true;
+        }
+
+        public async Task<bool> EditUser(int id, EditUserDto editUser)
+        {
+            var existingUser = await _context.Users.FindAsync(id);
+            if (existingUser == null){
+                return false;
+            }
+
+            existingUser.Name = editUser.Name ?? existingUser.Name;
+            if (editUser.Birthdate != default(DateOnly))
+            {
+                existingUser.Birthdate = editUser.Birthdate;
+            }
+
+            if (!string.IsNullOrEmpty(editUser.Gender))
+            {
+                existingUser.Gender = editUser.Gender;
+            }
+
+            _context.Entry(existingUser).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return true;
+
         }
     }
 }

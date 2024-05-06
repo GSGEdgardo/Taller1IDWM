@@ -24,10 +24,10 @@ namespace Taller1.Src.Services.Implements
             return mappedUser;
         }
 
-        /*public IEnumerable<UserDto> UserToUserDto(IEnumerable<User> users)
+        public IEnumerable<UserDto> UserToUserDto(IEnumerable<User> users)
         {
             var mappedUsers = users.Select(u => _mapper.Map<UserDto>(u)).ToList();
             return mappedUsers;
-        }*/
+        }
     }
 }

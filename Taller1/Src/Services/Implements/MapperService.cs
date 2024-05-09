@@ -6,6 +6,7 @@ using AutoMapper;
 using Taller1.Src.DTOs;
 using Taller1.Src.Services.Interfaces;
 using Taller1.Src.Models;
+using Taller1.Src.DTOs.ProductDTOs;
 
 namespace Taller1.Src.Services.Implements
 {
@@ -28,6 +29,12 @@ namespace Taller1.Src.Services.Implements
         {
             var mappedUsers = users.Select(u => _mapper.Map<UserDto>(u)).ToList();
             return mappedUsers;
+        }
+
+        public Product CreateProductDtoToProduct(CreateProductDto createProductDto)
+        {
+            var mappedProduct = _mapper.Map<Product>(createProductDto);
+            return mappedProduct;
         }
     }
 }

@@ -36,5 +36,29 @@ namespace Taller1.Src.Controllers
             return Ok("El producto se editó correctamente");
         }
 
+        [HttpDelete("{id}")]
+        public ActionResult<string> DeleteProduct(int id)
+        {
+            var result = _productService.DeleteProduct(id).Result;
+            if (!result)
+            {
+                return NotFound("El producto no existe en el sistema.");
+            }
+            return Ok("El producto se eliminó correctamente");
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<string>> CreateProduct(CreateProductDto createProductDto)
+        {
+            try
+            {
+                var response = await _productService.CreateProduct(createProductDto);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

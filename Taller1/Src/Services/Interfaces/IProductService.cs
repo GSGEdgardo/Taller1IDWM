@@ -11,5 +11,8 @@ namespace Taller1.Src.Services.Interfaces
         public Task<IEnumerable<GetProductDto>> GetProducts();
         public Task<bool> EditProduct(int id, EditProductDto editProduct);
 
+        public Task<bool> DeleteProduct(int id);
+
+        public Task<string> CreateProduct(CreateProductDto createProduct);
     }
 }

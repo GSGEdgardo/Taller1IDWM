@@ -7,5 +7,9 @@ namespace Taller1.Src.Repositories.Interfaces
     {
         Task<IEnumerable<Product>> GetProducts();
         Task<bool> EditProduct(int id, EditProductDto editProduct);
+        Task<bool> DeleteProduct(int id);
+        Task CreateProduct(Product product);
+        Task<bool> VerifyProductByName(string Name);
+        Task<bool> VerifyProductByType(string Type);
     }
 }

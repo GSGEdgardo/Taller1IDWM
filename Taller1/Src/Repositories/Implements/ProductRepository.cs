@@ -19,10 +19,10 @@ namespace Taller1.Src.Repositories.Implements
             var products = await _context.Products.ToListAsync();
             return products;
         }
-        public async Task<bool> EditProduct (int id, EditProductDto editProduct)
+        public async Task<bool> EditProduct(int id, EditProductDto editProduct)
         {
             var existingProduct = await _context.Products.FindAsync(id);
-            if(existingProduct == null)
+            if (existingProduct == null)
             {
                 return false;
             }
@@ -37,5 +37,44 @@ namespace Taller1.Src.Repositories.Implements
             return true;
         }
 
+        public async Task<bool> DeleteProduct(int id)
+        {
+            var product = await _context.Products.FindAsync(id);
+            if (product == null)
+            {
+                return false;
+            }
+            _context.Products.Remove(product);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task CreateProduct(Product product)
+        {
+            await _context.Products.AddAsync(product);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<bool> VerifyProductByName(string Name)
+        {
+            var product = await _context.Products.Where(p => p.Name == Name)
+                                                    .FirstOrDefaultAsync();
+            if (product == null)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public async Task<bool> VerifyProductByType(string Type)
+        {
+            var product = await _context.Products.Where(p => p.Type == Type)
+                                                    .FirstOrDefaultAsync();
+            if (product == null)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }

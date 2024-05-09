@@ -25,11 +25,11 @@ namespace Taller1.Src.Controllers
             var result = _productService.GetProducts().Result;
             return Ok(result);
         }
-                [HttpPut("{id}")]
+        [HttpPut("{id}")]
         public ActionResult<string> EditProduct(int id, [FromBody] EditProductDto editProduct)
         {
             var result = _productService.EditProduct(id, editProduct).Result;
-            if(!result)
+            if (!result)
             {
                 return NotFound("El producto no existe en el sistema.");
             }

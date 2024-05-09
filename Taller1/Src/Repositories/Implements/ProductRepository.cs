@@ -26,11 +26,25 @@ namespace Taller1.Src.Repositories.Implements
             {
                 return false;
             }
-            existingProduct.Name = editProduct.Name;
-            existingProduct.Price = editProduct.Price;
-            existingProduct.Stock = editProduct.Stock;
-            existingProduct.Type = editProduct.Type;
-            existingProduct.Image = editProduct.Image;
+            if(editProduct.Name!=null){
+                existingProduct.Name = editProduct.Name;
+
+            }
+            if(editProduct.Price.HasValue){
+                existingProduct.Price = editProduct.Price.Value;
+
+            }
+            if(editProduct.Stock.HasValue){
+                existingProduct.Stock = editProduct.Stock.Value;
+
+            }
+            if(editProduct.Type!=null){
+                existingProduct.Type = editProduct.Type;
+
+            }
+            if(editProduct.Image!=null){
+                existingProduct.Image = editProduct.Image;
+            }
 
             _context.Entry(existingProduct).State = EntityState.Modified;
             await _context.SaveChangesAsync();

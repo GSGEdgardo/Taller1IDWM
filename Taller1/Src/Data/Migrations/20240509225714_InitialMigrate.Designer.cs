@@ -11,8 +11,8 @@ using Taller1.Src.Data;
 namespace Taller1.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240509152030_Migrate")]
-    partial class Migrate
+    [Migration("20240509225714_InitialMigrate")]
+    partial class InitialMigrate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,8 +34,8 @@ namespace Taller1.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Price")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Stock")
                         .HasColumnType("INTEGER");

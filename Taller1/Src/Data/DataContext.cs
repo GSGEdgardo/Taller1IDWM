@@ -13,6 +13,8 @@ namespace Taller1.Src.Data
 
         public DbSet<Role> Roles { get; set;} = null!;
 
+        public DbSet<Product> Products { get; set;} = null!;
+
         public DataContext(DbContextOptions options) : base(options)
         {
 

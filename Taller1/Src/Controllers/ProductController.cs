@@ -8,7 +8,7 @@ using Taller1.Src.Services.Interfaces;
 namespace Taller1.Src.Controllers
 {
     [ApiController]
-    //[Authorize(Roles= "Admin")]
+    [Authorize(Roles= "Admin")]
     [Route("api/[controller]")]
     public class ProductController : ControllerBase
     {

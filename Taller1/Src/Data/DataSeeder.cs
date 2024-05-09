@@ -56,9 +56,8 @@ namespace Taller1.Src.Data
                 {
                     var product = new Product
                     {
-                        Name = "Producto 1",
-                        Description = "Descripcion del producto 1",
-                        Type = "Electrodoméstico",
+                        Name = "Tostadora Oster 4 rebanadas",
+                        Type = "Electrohogar",
                         Stock = 10,
                         Price = 10000,
                         Image = "https://via.placeholder.com/150"

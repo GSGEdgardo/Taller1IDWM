@@ -11,8 +11,8 @@ using Taller1.Src.Data;
 namespace Taller1.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240509050633_InitialMigrate")]
-    partial class InitialMigrate
+    [Migration("20240509152030_Migrate")]
+    partial class Migrate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,10 +25,6 @@ namespace Taller1.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
 
                     b.Property<string>("Image")
                         .IsRequired()

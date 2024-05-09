@@ -23,10 +23,6 @@ namespace Taller1.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Image")
                         .IsRequired()
                         .HasColumnType("TEXT");

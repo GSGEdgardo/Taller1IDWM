@@ -13,7 +13,7 @@ namespace Taller1.Src.Services.Implements
         {
             _productRepository = productRepository;
         }
-        
+
         public async Task<IEnumerable<GetProductDto>> GetProducts()
         {
             var products = await _productRepository.GetProducts();
@@ -28,8 +28,11 @@ namespace Taller1.Src.Services.Implements
             });
             return mappedProducts;
         }
-
-
+        public async Task<bool> EditProduct(int id, EditProductDto editProduct)
+        {
+            var result = await _productRepository.EditProduct(id, editProduct);
+            return result;
+        }
     }
 
 }

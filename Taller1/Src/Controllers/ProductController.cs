@@ -25,5 +25,16 @@ namespace Taller1.Src.Controllers
             var result = _productService.GetProducts().Result;
             return Ok(result);
         }
+                [HttpPut("{id}")]
+        public ActionResult<string> EditProduct(int id, [FromBody] EditProductDto editProduct)
+        {
+            var result = _productService.EditProduct(id, editProduct).Result;
+            if(!result)
+            {
+                return NotFound("El producto no existe en el sistema.");
+            }
+            return Ok("El producto se editó correctamente");
+        }
+
     }
 }

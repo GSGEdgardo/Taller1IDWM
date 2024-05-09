@@ -9,5 +9,7 @@ namespace Taller1.Src.Services.Interfaces
     public interface IProductService
     {
         public Task<IEnumerable<GetProductDto>> GetProducts();
+        public Task<bool> EditProduct(int id, EditProductDto editProduct);
+
     }
 }

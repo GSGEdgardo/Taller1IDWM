@@ -20,5 +20,8 @@ namespace Taller1.Src.Repositories.Interfaces
         Task AddUser(User user);
 
         Task<bool> EditUser(int id, EditUserDto editUser);
+        Task<User?> GetUserById(int Id);
+        Task<bool> SaveChanges();
+        Task<IEnumerable<User>> GetAdmin();
     }
 }

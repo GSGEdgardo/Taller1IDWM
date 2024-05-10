@@ -32,5 +32,22 @@ namespace Taller1.Src.Services.Implements
             var mappedUsers = _mapperService.UserToUserDto(users);
             return mappedUsers;
         }
+
+        public async Task<bool> UpdateUserStatus(int id, bool status)
+        {
+            var existingUser = await _userRepository.GetUserById(id);
+            if (existingUser == null)
+            {
+                return false;
+            }
+            
+            if (existingUser.RoleId != 2)
+            {
+                return false;
+            }
+        
+            existingUser.Status = status;
+            return await _userRepository.SaveChanges();
+        }
     }
 }

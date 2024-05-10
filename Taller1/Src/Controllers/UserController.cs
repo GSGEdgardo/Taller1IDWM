@@ -14,7 +14,6 @@ using Taller1.Src.Services.Interfaces;
 namespace Taller1.Src.Controllers
 {
     [ApiController]
-    [Authorize(Roles= "Admin")]
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
@@ -26,9 +25,18 @@ namespace Taller1.Src.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles="Admin")]
         public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
         {
             var result = await _userService.GetUsers();
+            return Ok(result);
+        }
+        
+        [HttpGet("admin")]
+        [Authorize(Roles="Admin")]
+        public async Task<ActionResult<IEnumerable<User>>> GetAdmin()
+        {
+            var result = await _userService.GetAdmin();
             return Ok(result);
         }
 
@@ -43,6 +51,7 @@ namespace Taller1.Src.Controllers
         }
 
         [HttpPatch("{id}/status")]
+        [Authorize(Roles="Admin")]
         public async Task<IActionResult> UpdateUserStatus(int id, [FromBody] UpdateUserStatusDto updateUserStatusDto)
         {
             try

@@ -85,6 +85,12 @@ namespace Taller1.Src.Services.Implements
                 throw new Exception("La fecha de nacimiento no puede ser mayor que hoy");
             }
 
+            // Validar opciones de género
+            string gender = mappedUser.Gender?.ToLower();
+            if(gender != "femenino" && gender != "masculino" && gender!= "prefiero no decirlo" && gender != "otro")
+            {
+                throw new Exception("El género no es una opción válida");
+            }
 
             var salt = BCrypt.Net.BCrypt.GenerateSalt(12);
             string passwordHash = BCrypt.Net.BCrypt.HashPassword(registerUserDto.Password, salt);

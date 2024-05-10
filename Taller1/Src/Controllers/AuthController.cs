@@ -6,6 +6,8 @@ using Taller1.Src.DTOs;
 using Taller1.Src.Services.Interfaces;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Taller1.Src.Controllers
 {
@@ -14,7 +16,7 @@ namespace Taller1.Src.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
-        
+
         public AuthController(IAuthService authService)
         {
             _authService = authService;
@@ -25,20 +27,30 @@ namespace Taller1.Src.Controllers
         {
             var response = await _authService.Login(loginUserDto);
 
-            if(response is null) return BadRequest("Credenciales invalidas.");
+            if (response is null) return BadRequest("Credenciales invalidas.");
 
             return Ok(response);
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<string>> Register(RegisterUserDto registerUserDto){
-            try{
+        public async Task<ActionResult<string>> Register(RegisterUserDto registerUserDto)
+        {
+            try
+            {
                 var response = await _authService.RegisterUser(registerUserDto);
                 return Ok(response);
             }
-            catch(Exception ex){
+            catch (Exception ex)
+            {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpPost("logout")]
+        public IActionResult logout()
+        {
+            HttpContext.SignOutAsync(JwtBearerDefaults.AuthenticationScheme);
+            return Ok(new { message = "Logout successful" });
         }
     }
 }

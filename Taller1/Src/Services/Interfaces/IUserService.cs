@@ -11,5 +11,8 @@ namespace Taller1.Src.Services.Interfaces
         public Task<IEnumerable<UserDto>> GetUsers();
 
         public Task<bool> EditUser(int id, EditUserDto editUser);
+        public Task<bool> UpdateUserStatus(int id, bool status);
+    
+        public Task<IEnumerable<UserDto>> GetAdmin();
     }
 }

@@ -20,7 +20,7 @@ namespace Taller1.Src.Repositories.Implements
         }
         public async Task<IEnumerable<User>> GetUsers()
         {
-            var users = await _context.Users.Where(u => u.RoleId == 2).ToListAsync();
+            var users = await _context.Users.Where(u => u.RoleId == 2 && u.Status).ToListAsync();
             return users;
         }
 
@@ -42,7 +42,8 @@ namespace Taller1.Src.Repositories.Implements
         {
             var user = await _context.Users.Where(u => u.Email == Email)
                                             .FirstOrDefaultAsync();
-            if(user == null){
+            if (user == null)
+            {
                 return false;
             }
             return true;
@@ -63,7 +64,8 @@ namespace Taller1.Src.Repositories.Implements
         public async Task<bool> EditUser(int id, EditUserDto editUser)
         {
             var existingUser = await _context.Users.FindAsync(id);
-            if (existingUser == null){
+            if (existingUser == null)
+            {
                 return false;
             }
 
@@ -83,6 +85,30 @@ namespace Taller1.Src.Repositories.Implements
 
             return true;
 
+        }
+
+        public async Task<User?> GetUserById(int Id)
+        {
+            return await _context.Users.FindAsync(Id);
+        }
+
+        public async Task<bool> SaveChanges()
+        {
+            try
+            {
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (DbUpdateException ex)
+            {
+                return false;
+            }
+        }
+
+        public async Task<IEnumerable<User>> GetAdmin()
+        {
+            var users = await _context.Users.Where(u => u.RoleId == 1).ToListAsync();
+            return users;
         }
     }
 }

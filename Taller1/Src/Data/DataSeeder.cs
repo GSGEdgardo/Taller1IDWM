@@ -17,24 +17,27 @@ namespace Taller1.Src.Data
                 var services = scope.ServiceProvider;
                 var context = services.GetRequiredService<DataContext>();
 
-                if(!context.Roles.Any()){
+                if (!context.Roles.Any())
+                {
                     context.Roles.AddRange(
-                        new Role { Name = "Admin"},
-                        new Role { Name = "Usuario"}
+                        new Role { Name = "Admin" },
+                        new Role { Name = "Usuario" }
                      );
                 }
 
-                if(!context.Users.Any())
+                if (!context.Users.Any())
                 {
 
-                    var user = new User { 
+                    var user = new User
+                    {
                         Name = "Ignacio Mancilla",
                         Rut = "20.416.699-4",
                         Birthdate = new DateOnly(2000, 10, 25),
                         Email = "ignacio.mancilla@gmail.com",
                         Gender = "Male",
                         Password = BCrypt.Net.BCrypt.HashPassword("P4ssw0rd"),
-                        RoleId = 1
+                        RoleId = 1,
+                        Status = true
                     };
 
                     context.Users.Add(user);
@@ -48,6 +51,20 @@ namespace Taller1.Src.Data
                     var users = faker.Generate(20); // Genera 10 usuarios aleatorios
 
                     context.Users.AddRange(users);
+                }
+
+                if (!context.Products.Any())
+                {
+                    var product = new Product
+                    {
+                        Name = "Tostadora Oster 4 rebanadas",
+                        Type = "Electrohogar",
+                        Stock = 10,
+                        Price = 10000,
+                        Image = "https://via.placeholder.com/150"
+                    };
+                    context.Products.Add(product);
+
                 }
 
                 context.SaveChanges();

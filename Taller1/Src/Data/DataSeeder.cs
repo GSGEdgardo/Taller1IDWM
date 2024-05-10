@@ -36,7 +36,8 @@ namespace Taller1.Src.Data
                         Email = "ignacio.mancilla@gmail.com",
                         Gender = "Male",
                         Password = BCrypt.Net.BCrypt.HashPassword("P4ssw0rd"),
-                        RoleId = 1
+                        RoleId = 1,
+                        Status = true
                     };
 
                     context.Users.Add(user);

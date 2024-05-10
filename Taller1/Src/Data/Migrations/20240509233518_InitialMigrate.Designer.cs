@@ -11,7 +11,7 @@ using Taller1.Src.Data;
 namespace Taller1.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240509225714_InitialMigrate")]
+    [Migration("20240509233518_InitialMigrate")]
     partial class InitialMigrate
     {
         /// <inheritdoc />
@@ -94,6 +94,9 @@ namespace Taller1.Migrations
                     b.Property<string>("Rut")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 

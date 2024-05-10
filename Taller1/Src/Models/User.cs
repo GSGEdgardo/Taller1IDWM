@@ -16,6 +16,8 @@ public class User
 
     public string Password { get; set; } = string.Empty;
 
+    public bool Status { get; set; } = true;
+
 
     //Relaciones
     public int RoleId { get; set;}

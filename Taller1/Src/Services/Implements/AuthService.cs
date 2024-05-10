@@ -8,6 +8,7 @@ using Taller1.Src.Models;
 using Taller1.Src.Repositories.Interfaces;
 using System.Text;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Taller1.Src.Util;
 
 namespace Taller1.Src.Services.Implements
 {
@@ -71,7 +72,12 @@ namespace Taller1.Src.Services.Implements
                 throw new Exception("El email ingresado ya existe.");
             }
 
-            // Verificar si el Rut ya existe
+            // Verificar si el Rut no es válido o ya existe
+            if (!RutValidator.CheckRut(mappedUser.Rut))
+            {
+                throw new Exception("El Rut ingresado no es válido.");
+            }
+
             if (await _userRepository.VerifyUserByRut(mappedUser.Rut))
             {
                 throw new Exception("El Rut ingresado ya está en uso.");

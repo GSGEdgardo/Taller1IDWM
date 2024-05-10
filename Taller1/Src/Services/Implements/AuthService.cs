@@ -7,6 +7,7 @@ using Taller1.Src.Services.Interfaces;
 using Taller1.Src.Models;
 using Taller1.Src.Repositories.Interfaces;
 using System.Text;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Taller1.Src.Services.Implements
 {
@@ -75,6 +76,15 @@ namespace Taller1.Src.Services.Implements
             {
                 throw new Exception("El Rut ingresado ya está en uso.");
             }
+
+            // Verificar que la fecha no sea mayor a la actual
+            DateOnly dateNow = DateOnly.FromDateTime(DateTime.UtcNow);
+
+            if( 0 < mappedUser.Birthdate.CompareTo(dateNow))
+            {
+                throw new Exception("La fecha de nacimiento no puede ser mayor que hoy");
+            }
+
 
             var salt = BCrypt.Net.BCrypt.GenerateSalt(12);
             string passwordHash = BCrypt.Net.BCrypt.HashPassword(registerUserDto.Password, salt);

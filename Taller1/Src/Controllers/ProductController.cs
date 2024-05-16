@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Taller1.Src.DTOs;
 using Taller1.Src.DTOs.ProductDTOs;
 using Taller1.Src.Models;
 using Taller1.Src.Services.Implements;
 using Taller1.Src.Services.Interfaces;
+
 
 namespace Taller1.Src.Controllers
 {
@@ -13,10 +16,12 @@ namespace Taller1.Src.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
+        private readonly IInvoiceService _invoiceService;
 
-        public ProductController(IProductService productService)
+        public ProductController(IProductService productService, IInvoiceService invoiceService)
         {
             _productService = productService;
+            _invoiceService = invoiceService;
         }
 
         [HttpGet]

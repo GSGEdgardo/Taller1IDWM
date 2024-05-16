@@ -1,460 +1,460 @@
 {
-	"info": {
-		"_postman_id": "21a6a1f4-f1a9-408d-bc3a-3e18accbc0c7",
-		"name": "Taller1-IDWM",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "26766428",
-		"_collection_link": "https://lively-crescent-763225.postman.co/workspace/IDWM~f4bbb70e-6331-4ee1-a1e6-01e89f43e91c/collection/26766428-21a6a1f4-f1a9-408d-bc3a-3e18accbc0c7?action=share&source=collection_link&creator=26766428"
-	},
-	"item": [
-		{
-			"name": "Users",
-			"item": [
-				{
-					"name": "EditProfile",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JwT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"Jorge Rivera 2\",\r\n  \"birthdate\": \"1990-05-15\",\r\n  \"gender\": \"Masculino\"\r\n}\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:5126/api/User/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5126",
-							"path": [
-								"api",
-								"User",
-								"1"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Products",
-			"item": [
-				{
-					"name": "GetProducts",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JwT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:5126/api/Product",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5126",
-							"path": [
-								"api",
-								"Product"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CreateProduct",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JwT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"pPkCiJWwQOMOYbbWhqqKOJuaMbFFnRaJfbpXsHnCDIvmeSFiWiAhoZyZFKkdlktp\",\r\n  \"type\": \"Jugueteria\",\r\n  \"stock\": 99999,\r\n  \"price\": 99999999,\r\n  \"image\": \"string\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:5126/api/Product",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5126",
-							"path": [
-								"api",
-								"Product"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "EditProduct",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JwT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"Figura de acción\",\r\n  \"type\": \"Jugueteria\",\r\n  \"stock\": 99999,\r\n  \"price\": 99999999,\r\n  \"image\": \"string\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:5126/api/Product/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5126",
-							"path": [
-								"api",
-								"Product",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "DeleteProduct",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JwT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:5126/api/Product/7",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5126",
-							"path": [
-								"api",
-								"Product",
-								"7"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Auth",
-			"item": [
-				{
-					"name": "Login",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"var responseBody = pm.response.text(); // Fixed syntax to parse response as text",
-									"var token = responseBody; // Updated to directly assign the response to the token",
-									"",
-									"pm.globals.set(\"JwT\", token);",
-									"",
-									"pm.test(\"Response status code is 200\", function () {",
-									"    pm.expect(pm.response.code).to.equal(200);",
-									"});",
-									"",
-									"",
-									"pm.test(\"Response time is less than 200ms\", function () {",
-									"  pm.expect(pm.response.responseTime).to.be.below(200);",
-									"});",
-									"",
-									"",
-									"pm.test(\"Response schema validation for JWT token format\", function () {",
-									"    const responseData = pm.response.text();",
-									"",
-									"    pm.expect(responseData).to.be.a('string');",
-									"    pm.expect(responseData).to.match(/^([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*)$/);",
-									"});",
-									"",
-									"",
-									"pm.test(\"JWT token is not empty\", function () {",
-									"    const responseData = pm.response.text();",
-									"",
-									"    pm.expect(responseData).to.not.be.empty;",
-									"});",
-									"",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"email\": \"ignacio.mancilla@gmail.com\",\r\n  \"password\": \"P4ssw0rd\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:5126/api/Auth/login",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5126",
-							"path": [
-								"api",
-								"Auth",
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Logout",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.globals.set(\"JwT\", \"\");\r",
-									"\r",
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.expect(pm.response.code).to.equal(200);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:5126/api/Auth/logout",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5126",
-							"path": [
-								"api",
-								"Auth",
-								"logout"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Register",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"rut\": \"12345678-9\",\r\n  \"name\": \"Juan Pérez\",\r\n  \"birthdate\": \"1990-05-15\",\r\n  \"email\": \"juanperez@example.com\",\r\n  \"gender\": \"Masculino\",\r\n  \"password\": \"Password123\",\r\n  \"confirmPassword\": \"Password123\"\r\n}\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:5126/api/Auth/register",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5126",
-							"path": [
-								"api",
-								"Auth",
-								"register"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Admin",
-			"item": [
-				{
-					"name": "DisableUsers",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JwT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"status\": false\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:5126/api/User/2/status",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5126",
-							"path": [
-								"api",
-								"User",
-								"2",
-								"status"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GetUsers",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JwT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:5126/api/User",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5126",
-							"path": [
-								"api",
-								"User"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GetAdmin",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{JwT}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:5126/api/User/admin",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5126",
-							"path": [
-								"api",
-								"User",
-								"admin"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		}
-	],
-	"variable": [
-		{
-			"key": "token",
-			"value": "token"
-		}
-	]
+  "info": {
+    "_postman_id": "21a6a1f4-f1a9-408d-bc3a-3e18accbc0c7",
+    "name": "Taller1-IDWM",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "26766428",
+    "_collection_link": "https://lively-crescent-763225.postman.co/workspace/IDWM~f4bbb70e-6331-4ee1-a1e6-01e89f43e91c/collection/26766428-21a6a1f4-f1a9-408d-bc3a-3e18accbc0c7?action=share&source=collection_link&creator=26766428"
+  },
+  "item": [
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "EditProfile",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JwT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Jorge Rivera 2\",\r\n  \"birthdate\": \"1990-05-15\",\r\n  \"gender\": \"Masculino\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5126/api/User/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5126",
+              "path": [
+                "api",
+                "User",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "GetProducts",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JwT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5126/api/Product",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5126",
+              "path": [
+                "api",
+                "Product"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CreateProduct",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JwT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"pPkCiJWwQOMOYbbWhqqKOJuaMbFFnRaJfbpXsHnCDIvmeSFiWiAhoZyZFKkdlktp\",\r\n  \"type\": \"Jugueteria\",\r\n  \"stock\": 99999,\r\n  \"price\": 99999999,\r\n  \"image\": \"string\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5126/api/Product",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5126",
+              "path": [
+                "api",
+                "Product"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "EditProduct",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JwT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Figura de acción\",\r\n  \"type\": \"Jugueteria\",\r\n  \"stock\": 99999,\r\n  \"price\": 99999999,\r\n  \"image\": \"string\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5126/api/Product/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5126",
+              "path": [
+                "api",
+                "Product",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DeleteProduct",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JwT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5126/api/Product/7",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5126",
+              "path": [
+                "api",
+                "Product",
+                "7"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var responseBody = pm.response.text(); // Fixed syntax to parse response as text",
+                  "var token = responseBody; // Updated to directly assign the response to the token",
+                  "",
+                  "pm.globals.set(\"JwT\", token);",
+                  "",
+                  "pm.test(\"Response status code is 200\", function () {",
+                  "    pm.expect(pm.response.code).to.equal(200);",
+                  "});",
+                  "",
+                  "",
+                  "pm.test(\"Response time is less than 200ms\", function () {",
+                  "  pm.expect(pm.response.responseTime).to.be.below(200);",
+                  "});",
+                  "",
+                  "",
+                  "pm.test(\"Response schema validation for JWT token format\", function () {",
+                  "    const responseData = pm.response.text();",
+                  "",
+                  "    pm.expect(responseData).to.be.a('string');",
+                  "    pm.expect(responseData).to.match(/^([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*)$/);",
+                  "});",
+                  "",
+                  "",
+                  "pm.test(\"JWT token is not empty\", function () {",
+                  "    const responseData = pm.response.text();",
+                  "",
+                  "    pm.expect(responseData).to.not.be.empty;",
+                  "});",
+                  "",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"ignacio.mancilla@gmail.com\",\r\n  \"password\": \"P4ssw0rd\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5126/api/Auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5126",
+              "path": [
+                "api",
+                "Auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Logout",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.globals.set(\"JwT\", \"\");\r",
+                  "\r",
+                  "pm.test(\"Response status code is 200\", function () {\r",
+                  "    pm.expect(pm.response.code).to.equal(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5126/api/Auth/logout",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5126",
+              "path": [
+                "api",
+                "Auth",
+                "logout"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"rut\": \"12345678-9\",\r\n  \"name\": \"Juan Pérez\",\r\n  \"birthdate\": \"1990-05-15\",\r\n  \"email\": \"juanperez@example.com\",\r\n  \"gender\": \"Masculino\",\r\n  \"password\": \"Password123\",\r\n  \"confirmPassword\": \"Password123\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5126/api/Auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5126",
+              "path": [
+                "api",
+                "Auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "DisableUsers",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JwT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"status\": false\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5126/api/User/2/status",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5126",
+              "path": [
+                "api",
+                "User",
+                "2",
+                "status"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GetUsers",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JwT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5126/api/User",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5126",
+              "path": [
+                "api",
+                "User"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GetAdmin",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JwT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5126/api/User/admin",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5126",
+              "path": [
+                "api",
+                "User",
+                "admin"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "token",
+      "value": "token"
+    }
+  ]
 }

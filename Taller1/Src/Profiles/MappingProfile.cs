@@ -16,6 +16,8 @@ namespace Taller1.Src.Profiles
             CreateMap<RegisterUserDto, User>();
             CreateMap<User, UserDto>();
             CreateMap<CreateProductDto, Product>();
+            CreateMap<Invoice, InvoiceDto>();
+
         }
     }
 }

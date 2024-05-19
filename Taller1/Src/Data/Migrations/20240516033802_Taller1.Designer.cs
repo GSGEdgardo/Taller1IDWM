@@ -8,17 +8,53 @@ using Taller1.Src.Data;
 
 #nullable disable
 
-namespace Taller1.Migrations
+namespace Taller1.Src.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240509233518_InitialMigrate")]
-    partial class InitialMigrate
+    [Migration("20240516033802_Taller1")]
+    partial class Taller1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.16");
+
+            modelBuilder.Entity("Taller1.Src.Models.Invoice", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ProductType")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Invoices");
+                });
 
             modelBuilder.Entity("Taller1.Src.Models.Product", b =>
                 {
@@ -103,6 +139,17 @@ namespace Taller1.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Taller1.Src.Models.Invoice", b =>
+                {
+                    b.HasOne("Taller1.Src.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Taller1.Src.Models.User", b =>

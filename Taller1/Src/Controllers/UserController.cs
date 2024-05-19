@@ -55,9 +55,9 @@ namespace Taller1.Src.Controllers
         [HttpPut("{id}/changepassword")]
         public ActionResult<string> ChangePassword(int id, [FromBody] PasswordDto changePasswordDto)
         {
-            var result = _userService.ChangePassword(id, changePasswordDto).Result;
-            if(!result){
-                return NotFound("Ha ocurrido un error.");
+            var (success, errorMessage) = _userService.ChangePassword(id, changePasswordDto).Result;
+            if(!success){
+                return BadRequest(errorMessage);
             }
             HttpContext.SignOutAsync(JwtBearerDefaults.AuthenticationScheme);
             return Ok("Se ha cambiado la contraseña con éxito, se procederá a cerrar su cuenta.");

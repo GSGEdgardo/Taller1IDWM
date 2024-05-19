@@ -15,6 +15,6 @@ namespace Taller1.Src.Services.Interfaces
     
         public Task<IEnumerable<UserDto>> GetAdmin();
 
-        public Task<bool> ChangePassword(int id, PasswordDto changePasswordDto);
+        public Task<(bool success, string ErrorMessage)> ChangePassword(int id, PasswordDto changePasswordDto);
     }
 }

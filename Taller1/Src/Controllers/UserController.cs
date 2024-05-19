@@ -10,6 +10,8 @@ using Taller1.Src.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Taller1.Src.DTOs;
 using Taller1.Src.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Taller1.Src.Controllers
 {
@@ -49,6 +51,18 @@ namespace Taller1.Src.Controllers
             }
             return Ok("El usuario se editó correctamente");
         }
+
+        [HttpPut("{id}/changepassword")]
+        public ActionResult<string> ChangePassword(int id, [FromBody] PasswordDto changePasswordDto)
+        {
+            var (success, errorMessage) = _userService.ChangePassword(id, changePasswordDto).Result;
+            if(!success){
+                return BadRequest(errorMessage);
+            }
+            HttpContext.SignOutAsync(JwtBearerDefaults.AuthenticationScheme);
+            return Ok("Se ha cambiado la contraseña con éxito, se procederá a cerrar su cuenta.");
+        }
+
 
         [HttpPatch("{id}/status")]
         [Authorize(Roles="Admin")]

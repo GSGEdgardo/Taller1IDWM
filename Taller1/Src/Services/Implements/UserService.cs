@@ -57,6 +57,33 @@ namespace Taller1.Src.Services.Implements
             return mappedUsers;
         }
 
+        public async Task<(bool success, string ErrorMessage)> ChangePassword(int id, PasswordDto changePasswordDto)
+        {
+            var existingUser = await _userRepository.GetUserById(id);
 
+            if(existingUser == null){
+                return (false, "El usuario no existe.");
+            }
+            var result = BCrypt.Net.BCrypt.Verify(changePasswordDto.OldPassword, existingUser.Password);
+            
+            if(!result){
+                return (false, "La contraseña antigua es incorrecta.");
+            }
+
+            if(changePasswordDto.NewPassword != changePasswordDto.ConfirmNewPassword){
+                return (false, "Las contraseñas no coinciden.");
+            }
+
+            var salt = BCrypt.Net.BCrypt.GenerateSalt(12);
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword(changePasswordDto.NewPassword, salt);
+            existingUser.Password = passwordHash;
+
+            var saveResult = await _userRepository.SaveChanges();
+            if(!saveResult)
+            {
+                return (false, "Ocurrió un error inesperado.");
+            }
+            return (true, string.Empty);
+        }
     }
 }

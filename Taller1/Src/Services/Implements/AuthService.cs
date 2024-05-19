@@ -7,6 +7,8 @@ using Taller1.Src.Services.Interfaces;
 using Taller1.Src.Models;
 using Taller1.Src.Repositories.Interfaces;
 using System.Text;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Taller1.Src.Util;
 
 namespace Taller1.Src.Services.Implements
 {
@@ -70,10 +72,30 @@ namespace Taller1.Src.Services.Implements
                 throw new Exception("El email ingresado ya existe.");
             }
 
-            // Verificar si el Rut ya existe
+            // Verificar si el Rut no es válido o ya existe
+            if (!RutValidator.CheckRut(mappedUser.Rut))
+            {
+                throw new Exception("El Rut ingresado no es válido.");
+            }
+
             if (await _userRepository.VerifyUserByRut(mappedUser.Rut))
             {
                 throw new Exception("El Rut ingresado ya está en uso.");
+            }
+
+            // Verificar que la fecha no sea mayor a la actual
+            DateOnly dateNow = DateOnly.FromDateTime(DateTime.UtcNow);
+
+            if( 0 < mappedUser.Birthdate.CompareTo(dateNow))
+            {
+                throw new Exception("La fecha de nacimiento no puede ser mayor que hoy");
+            }
+
+            // Validar opciones de género
+            string gender = mappedUser.Gender?.ToLower();
+            if(gender != "femenino" && gender != "masculino" && gender!= "prefiero no decirlo" && gender != "otro")
+            {
+                throw new Exception("El género no es una opción válida");
             }
 
             var salt = BCrypt.Net.BCrypt.GenerateSalt(12);

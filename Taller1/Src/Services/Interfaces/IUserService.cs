@@ -14,5 +14,7 @@ namespace Taller1.Src.Services.Interfaces
         public Task<bool> UpdateUserStatus(int id, bool status);
     
         public Task<IEnumerable<UserDto>> GetAdmin();
+
+        public Task<bool> ChangePassword(int id, PasswordDto changePasswordDto);
     }
 }

@@ -57,6 +57,28 @@ namespace Taller1.Src.Services.Implements
             return mappedUsers;
         }
 
+        public async Task<bool> ChangePassword(int id, PasswordDto changePasswordDto)
+        {
+            var existingUser = await _userRepository.GetUserById(id);
 
+            if(existingUser == null){
+                return false;
+            }
+            var result = BCrypt.Net.BCrypt.Verify(changePasswordDto.OldPassword, existingUser.Password);
+            
+            if(!result){
+                return false;
+            }
+
+            if(changePasswordDto.NewPassword != changePasswordDto.ConfirmNewPassword){
+                return false;
+            }
+
+            var salt = BCrypt.Net.BCrypt.GenerateSalt(12);
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword(changePasswordDto.NewPassword, salt);
+            existingUser.Password = passwordHash;
+
+            return await _userRepository.SaveChanges();
+        }
     }
 }

@@ -9,6 +9,9 @@ using Microsoft.IdentityModel.Tokens;
 using Taller1.Src.Models;
 using Taller1.Src.Profiles;
 using Taller1.Src.Helpers;
+using DotNetEnv; 
+
+Env.Load(); 
 
 var builder = WebApplication.CreateBuilder(args);
 
